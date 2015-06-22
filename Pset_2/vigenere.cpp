@@ -109,7 +109,3 @@ Step 4: Implementing encoding algorithm
 	}
 
 }
-
-
-
-	
