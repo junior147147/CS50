@@ -1,4 +1,4 @@
-/****************************************************************************
+/***********************************************************************************
  * FILENAME: vigenere.cpp
  *
  * Mon 22 June, 5:12 PM
@@ -9,7 +9,7 @@
  * entirely of alphabetical characters.
  *
  * Ci = (Pi + Ki) % 26
- ****************************************************************************/
+ ***********************************************************************************/
 
 #include <string.h>
 #include <stdio.h>
@@ -24,9 +24,9 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
 
-/****************************************************************************
-Step 1 : Check validation of arguments input
-****************************************************************************/
+/***********************************************************************************
+Step 1 : Check validation of command-line arguments input
+***********************************************************************************/
 	bool is_two_argc = false;
 	do{
 		if (argc != 2){ 
@@ -40,13 +40,17 @@ Step 1 : Check validation of arguments input
 		}while(!is_two_argc);
 		
 
-/****************************************************************************
+/***********************************************************************************
 Step 2: set key from characters to numbers (ex: a&A = 0  etcs)
-****************************************************************************/
 
-//set input key to string key_char
+* translating from a set of characters to a set of integers can be tricky
+* Vector is helpful to construct a integer array since vector defines all types.
+
+* std::vector<type> name(size); 
+
+***********************************************************************************/
+
 string key_char = argv[1];
-//size is from the begining of the input to the end, brilliant!!
 std::vector<int> key_num(key_char.begin(), key_char.end());  
 
 	for (int i = 0; i < key_char.length(); i++){
@@ -60,9 +64,12 @@ std::vector<int> key_num(key_char.begin(), key_char.end());
 		}
 	}
 
-/****************************************************************************
+/***********************************************************************************
 Step 3: Asking for message
-****************************************************************************/
+
+* make sure to use getline for a string
+
+***********************************************************************************/
 
 
 	string sentence;
@@ -71,15 +78,18 @@ Step 3: Asking for message
 	getline(cin,sentence);
 
 
-/****************************************************************************
+/***********************************************************************************
 Step 4: Implementing encoding algorithm
-****************************************************************************/
-	
-	//key counters
+
+* key counters wrap around and reset if its size is smaller than the encoded message
+* using module can reset the counters: key index % size of key
+
+***********************************************************************************/
+
 	int j = 0;
 
 	for(int i = 0; i < sentence.length(); i++){
-		//key counters wrap around and reset if its size is smaller than the encoded message
+		//
 		j = j%key_num.size();
 		if (isalpha(sentence[i])){
 			if (islower(sentence[i])){
